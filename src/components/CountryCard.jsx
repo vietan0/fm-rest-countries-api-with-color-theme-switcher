@@ -4,13 +4,13 @@ import {
 import {
   array, number, oneOfType, string,
 } from 'prop-types';
-// import numeral from 'numeral-es6';
 
 export default function CountryCard({
   commonName, population, region, capital, flagImg,
 }) {
   return (
     <Card
+      elevation={6}
       sx={{
         minWidth: '240px',
       }}
