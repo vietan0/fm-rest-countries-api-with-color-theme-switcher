@@ -1,31 +1,32 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import { useTheme } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
+import {
+  useTheme, AppBar, Button, Link, Toolbar, Typography,
+} from '@mui/material';
 import { string, func } from 'prop-types';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function Nav({ theme, setTheme }) {
   const appBarBg = useTheme().palette.background.default;
   const appBarText = useTheme().palette.text.primary;
 
-  console.log('Nav rendered!');
   return (
     <AppBar
       position="sticky"
       sx={{ backgroundColor: appBarBg, color: appBarText }}
     >
-      <Toolbar sx={{ marginX: '3rem' }}>
+      <Toolbar sx={{ marginX: '3rem', justifyContent: 'space-between' }}>
         <Link
-          href="#"
+          component={RouterLink}
+          to="/"
           variant="h6"
           underline="hover"
           sx={{
-            fontWeight: '800', letterSpacing: '-0.5px', lineHeight: '110%', marginRight: 'auto',
+            fontWeight: '800',
+            letterSpacing: '-0.5px',
+            lineHeight: '110%',
+            marginRight: 'auto',
           }}
         >
           Where in the world?

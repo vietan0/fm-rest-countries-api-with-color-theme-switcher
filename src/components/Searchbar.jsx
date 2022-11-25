@@ -7,7 +7,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import { useState } from 'react';
 import { string, func } from 'prop-types';
 
-export default function Toolbar({ selectedRegion, setSelectedRegion }) {
+export default function Searchbar({ selectedRegion, setSelectedRegion }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (e) => setAnchorEl(e.currentTarget);
@@ -21,7 +21,6 @@ export default function Toolbar({ selectedRegion, setSelectedRegion }) {
     setSelectedRegion('');
   };
 
-  console.log('Toolbar rendered!');
   return (
     <Box
       sx={{
@@ -94,7 +93,7 @@ export default function Toolbar({ selectedRegion, setSelectedRegion }) {
   );
 }
 
-Toolbar.propTypes = {
+Searchbar.propTypes = {
   selectedRegion: string.isRequired,
   setSelectedRegion: func.isRequired,
 };

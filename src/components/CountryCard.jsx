@@ -1,71 +1,79 @@
 import {
-  Typography, Box, Card, CardContent,
+  Typography, Box, Card, CardContent, Link,
 } from '@mui/material';
 import {
   array, number, oneOfType, string,
 } from 'prop-types';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function CountryCard({
   commonName, population, region, capital, flagImg,
 }) {
   return (
-    <Card
-      elevation={6}
-      sx={{
-        minWidth: '240px',
-      }}
+    <Link
+      to={`/countries/${commonName}`}
+      underline="none"
+      component={RouterLink}
     >
-      <CardContent
+      <Card
+        elevation={6}
         sx={{
-          padding: '0',
+          minWidth: '240px',
         }}
+        className="countryCard"
       >
-        <img
-          src={flagImg}
-          alt={`${commonName}'s flag`}
-        />
-        <Box sx={{ padding: '1.5rem' }}>
-          <Typography
-            variant="h5"
-            component="h3"
-            gutterBottom
-            sx={{ fontWeight: '800' }}
-          >
-            {commonName}
-          </Typography>
-          <Typography>
+        <CardContent
+          sx={{
+            padding: '0',
+          }}
+        >
+          <img
+            src={flagImg}
+            alt={`${commonName}'s flag`}
+          />
+          <Box sx={{ padding: '1.5rem' }}>
             <Typography
-              component="span"
-              sx={{ fontWeight: '600', display: 'inline-block' }}
+              variant="h5"
+              component="h3"
+              gutterBottom
+              sx={{ fontWeight: '800' }}
             >
-              Population:
+              {commonName}
             </Typography>
-            {' '}
-            {population}
-          </Typography>
-          <Typography>
-            <Typography
-              component="span"
-              sx={{ fontWeight: '600', display: 'inline-block' }}
-            >
-              Region:
+            <Typography>
+              <Typography
+                component="span"
+                sx={{ fontWeight: '600', display: 'inline-block' }}
+              >
+                Population:
+              </Typography>
+              {' '}
+              {population}
             </Typography>
-            {' '}
-            {region}
-          </Typography>
-          <Typography>
-            <Typography
-              component="span"
-              sx={{ fontWeight: '600', display: 'inline-block' }}
-            >
-              Capital:
+            <Typography>
+              <Typography
+                component="span"
+                sx={{ fontWeight: '600', display: 'inline-block' }}
+              >
+                Region:
+              </Typography>
+              {' '}
+              {region}
             </Typography>
-            {' '}
-            {capital}
-          </Typography>
-        </Box>
-      </CardContent>
-    </Card>
+            <Typography>
+              <Typography
+                component="span"
+                sx={{ fontWeight: '600', display: 'inline-block' }}
+              >
+                Capital:
+              </Typography>
+              {' '}
+              {capital}
+            </Typography>
+          </Box>
+        </CardContent>
+      </Card>
+    </Link>
   );
 }
 
