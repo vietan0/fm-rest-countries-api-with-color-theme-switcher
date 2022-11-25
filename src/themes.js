@@ -19,10 +19,10 @@ export const lightTheme = {
   ...sharedOverrides,
   palette: {
     primary: {
-      main: 'hsl(209, 23%, 22%)',
+      main: 'hsl(219, 43%, 32%)',
     },
     text: {
-      primary: 'hsl(200, 15%, 8%)',
+      primary: 'hsl(219, 15%, 15%)',
     },
     background: {
       default: 'hsl(0, 0%, 98%)',
@@ -41,7 +41,7 @@ export const darkTheme = {
       primary: 'hsl(0, 0%, 100%)',
     },
     background: {
-      default: 'hsl(207, 26%, 8%)',
+      default: 'hsl(207, 26%, 12%)',
       paper: 'hsl(209, 23%, 10%)',
     },
   },

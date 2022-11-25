@@ -4,6 +4,12 @@ body {
 
 img {
   width: 100%;
-  height: 160px;
   object-fit: cover;
+}
+
+.countryCard img {
+  height: 160px;
+}
+
+.countryPage img {
 }
