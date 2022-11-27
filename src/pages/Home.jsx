@@ -19,7 +19,7 @@ export default function Home() {
       population={countryObj.population}
       region={countryObj.region}
       capital={countryObj.capital}
-      flagImg={countryObj.flags.png}
+      flagImg={countryObj.flags.svg}
       key={nanoid()}
     />
   ));

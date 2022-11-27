@@ -41,7 +41,7 @@ export const darkTheme = {
       primary: 'hsl(0, 0%, 100%)',
     },
     background: {
-      default: 'hsl(207, 26%, 12%)',
+      default: 'hsl(207, 26%, 15%)',
       paper: 'hsl(209, 23%, 10%)',
     },
   },
