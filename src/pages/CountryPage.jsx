@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
 import {
-  Button, Container, Grid, Stack, Typography,
+  Divider, Button, Container, Grid, Stack, Typography,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CountriesContext } from '../CountriesContext';
@@ -12,7 +12,7 @@ export default function CountryPage() {
   const found = countries.find((country) => country.name.common === params.name);
 
   const borderCountriesLinks = found.borders
-    && found.borders.map((cca3) => {
+    ? found.borders.map((cca3) => {
       const countryObj = countries.find((country) => country.cca3 === cca3);
       return (
         <Button
@@ -24,7 +24,7 @@ export default function CountryPage() {
           {cca3}
         </Button>
       );
-    });
+    }) : 'None';
   const nav = useNavigate();
 
   return (
@@ -79,7 +79,13 @@ export default function CountryPage() {
             <Stack spacing={4}>
               <Stack
                 direction={{ sm: 'column', md: 'row' }}
-                spacing={2}
+                spacing={{ sm: 2, md: 4 }}
+                divider={(
+                  <Divider
+                    orientation="vertical"
+                    flexItem
+                  />
+                )}
               >
                 <Stack spacing={1}>
                   <Typography>
