@@ -2,6 +2,6 @@
 - ~~Make continents menu stick to right~~
 - ~~Nudge card box-shadow~~
 - ~~Add country individual page~~
+- ~~Add sorting functionality~~
 - Split countries into pages
-- Add sorting functionality
 - Figure out how to search
