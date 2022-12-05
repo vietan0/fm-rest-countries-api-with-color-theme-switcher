@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   Menu,
   MenuItem,
@@ -7,6 +6,7 @@ import {
   InputAdornment,
   ListItemIcon,
   ListItemText,
+  Stack,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -14,8 +14,8 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
 import CheckIcon from '@mui/icons-material/Check';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import { useState } from 'react';
 import { bool, func, string } from 'prop-types';
+import { useState } from 'react';
 
 export default function Searchbar({
   selectedRegion,
@@ -24,6 +24,7 @@ export default function Searchbar({
   setIsFilteredByUnMember,
   sortBy,
   setSortBy,
+  setCurrentPage,
 }) {
   const [filterAnchor, setFilterAnchor] = useState(null);
   const filterOpen = Boolean(filterAnchor);
@@ -34,14 +35,23 @@ export default function Searchbar({
   const regionMenuOpen = Boolean(regionAnchor);
   const handleRegionClick = (e) => setRegionAnchor(e.currentTarget);
   const handleRegionClose = () => setRegionAnchor(null);
-  const selectRegion = (e) => setSelectedRegion((prev) => (prev === e.target.textContent ? '' : e.target.textContent));
-  const handleUnMemberClick = () => setIsFilteredByUnMember((prev) => !prev);
+  const selectRegion = (e) => {
+    setSelectedRegion((prev) => (prev === e.target.textContent ? '' : e.target.textContent));
+    setCurrentPage(1);
+  };
+  const handleUnMemberClick = () => {
+    setIsFilteredByUnMember((prev) => !prev);
+    setCurrentPage(1);
+  };
 
   const [sortElem, setSortElem] = useState(null);
   const sortOpen = Boolean(sortElem);
   const handleSortClick = (e) => setSortElem(e.currentTarget);
   const handleSortClose = () => setSortElem(null);
-  const selectSortCategory = (e) => setSortBy((prev) => (prev === e.target.textContent ? '' : e.target.textContent));
+  const selectSortCategory = (e) => {
+    setSortBy((prev) => (prev === e.target.textContent ? '' : e.target.textContent));
+    setCurrentPage(1);
+  };
   const regions = ['Africa', 'Americas', 'Asia', 'Europe', 'Oceania'].map((regionName) => (
     <MenuItem
       selected={selectedRegion === regionName}
@@ -73,21 +83,16 @@ export default function Searchbar({
   ));
 
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        gap: '2rem',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: '3rem',
-      }}
+    <Stack
+      direction="row"
+      spacing={2}
+      justifyContent="space-between"
+      alignItems="center"
     >
-      <Box
-        sx={{
-          display: 'flex',
-          gap: '0.5rem',
-          alignItems: 'center',
-        }}
+      <Stack
+        direction="row"
+        spacing={0.5}
+        alignItems="center"
       >
         <TextField
           id="input-with-sx"
@@ -101,8 +106,11 @@ export default function Searchbar({
             ),
           }}
         />
-      </Box>
-      <Box sx={{ display: 'flex', gap: '1rem' }}>
+      </Stack>
+      <Stack
+        direction="row"
+        spacing={1}
+      >
         <Button
           onClick={handleSortClick}
           endIcon={<KeyboardArrowDownIcon />}
@@ -130,14 +138,8 @@ export default function Searchbar({
           open={filterOpen}
           anchorEl={filterAnchor}
           onClose={handleFilterClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'right',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           className="filterMenu"
         >
           <MenuItem onClick={handleRegionClick}>
@@ -157,20 +159,14 @@ export default function Searchbar({
           open={regionMenuOpen}
           anchorEl={regionAnchor}
           onClose={handleRegionClose}
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'left',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
-          }}
+          anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           className="regions"
         >
           {regions}
         </Menu>
-      </Box>
-    </Box>
+      </Stack>
+    </Stack>
   );
 }
 
@@ -181,4 +177,5 @@ Searchbar.propTypes = {
   setIsFilteredByUnMember: func.isRequired,
   sortBy: string.isRequired,
   setSortBy: func.isRequired,
+  setCurrentPage: func.isRequired,
 };

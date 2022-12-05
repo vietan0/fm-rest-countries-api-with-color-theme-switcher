@@ -1,14 +1,8 @@
-const array = Array(25);
-for (let i = 0; i < 25; i += 1) {
-  array[i] = i;
+export default function pagination(array, numPerPage) {
+  const pages = [];
+  for (let i = 0; i < array.length; i += numPerPage) {
+    const smallArr = array.slice(i, i + numPerPage);
+    if (smallArr !== []) pages.push(smallArr);
+  }
+  return pages;
 }
-
-const pages = [];
-for (let i = 0; i < array.length; i += 5) {
-  const smallArr = array.slice(i, i + 5);
-  if (smallArr !== []) pages.push(smallArr);
-
-  console.log(pages.indexOf(smallArr));
-}
-
-console.log(pages);

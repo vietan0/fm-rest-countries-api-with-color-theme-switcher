@@ -3,5 +3,6 @@
 - ~~Nudge card box-shadow~~
 - ~~Add country individual page~~
 - ~~Add sorting functionality~~
-- Split countries into pages
+- ~~Split countries into pages~~
 - Figure out how to search
+- Format population number
