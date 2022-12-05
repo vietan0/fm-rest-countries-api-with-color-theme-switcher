@@ -42,9 +42,7 @@ export default function Nav({ theme, setTheme }) {
             component="span"
             sx={{ fontSize: '0.85rem' }}
           >
-            {theme === 'light' ? 'dark' : 'light'}
-            {' '}
-            Mode
+            {theme === 'light' ? 'dark' : 'light'} Mode
           </Typography>
         </Button>
       </Toolbar>

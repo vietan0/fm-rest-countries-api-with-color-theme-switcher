@@ -1,8 +1,6 @@
 import { useContext } from 'react';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
-import {
-  Divider, Button, Container, Grid, Stack, Typography,
-} from '@mui/material';
+import { Divider, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CountriesContext } from '../CountriesContext';
 
@@ -13,18 +11,24 @@ export default function CountryPage() {
 
   const borderCountriesLinks = found.borders
     ? found.borders.map((cca3) => {
-      const countryObj = countries.find((country) => country.cca3 === cca3);
-      return (
-        <Button
-          to={`/countries/${countryObj.name.common}`}
-          component={RouterLink}
-          variant="outlined"
-          sx={{ marginRight: '1rem' }}
-        >
-          {cca3}
-        </Button>
-      );
-    }) : 'None';
+        const countryObj = countries.find((country) => country.cca3 === cca3);
+        return (
+          <Button
+            to={`/countries/${countryObj.name.common}`}
+            component={RouterLink}
+            variant="outlined"
+            sx={{ mr: '0.5rem', mb: "1rem" }}
+          >
+            <img
+              src={countryObj.flags.png}
+              alt=""
+              className="bordering-country"
+            />
+            {cca3}
+          </Button>
+        );
+      })
+    : 'None';
   const nav = useNavigate();
 
   return (
@@ -57,7 +61,7 @@ export default function CountryPage() {
         <Grid
           item
           xs={12}
-          sm={7}
+          sm={5}
         >
           <img
             src={found.flags.svg}
@@ -78,14 +82,14 @@ export default function CountryPage() {
             </Typography>
             <Stack spacing={4}>
               <Stack
-                direction={{ sm: 'column', md: 'row' }}
-                spacing={{ sm: 2, md: 4 }}
-                divider={(
+                direction={{ md: 'column', lg: 'row' }}
+                spacing={{ md: 2, lg: 4 }}
+                divider={
                   <Divider
                     orientation="vertical"
                     flexItem
                   />
-                )}
+                }
               >
                 <Stack spacing={1}>
                   <Typography>
@@ -94,8 +98,7 @@ export default function CountryPage() {
                       sx={{ fontWeight: '600', display: 'inline-block' }}
                     >
                       Native Name:
-                    </Typography>
-                    {' '}
+                    </Typography>{' '}
                     {Object.values(Object.values(found.name.nativeName)[0])[0]}
                   </Typography>
                   <Typography>
@@ -104,8 +107,7 @@ export default function CountryPage() {
                       sx={{ fontWeight: '600', display: 'inline-block' }}
                     >
                       Population:
-                    </Typography>
-                    {' '}
+                    </Typography>{' '}
                     {found.population}
                   </Typography>
                   <Typography>
@@ -114,8 +116,7 @@ export default function CountryPage() {
                       sx={{ fontWeight: '600', display: 'inline-block' }}
                     >
                       Region:
-                    </Typography>
-                    {' '}
+                    </Typography>{' '}
                     {found.region}
                   </Typography>
                   <Typography>
@@ -124,8 +125,7 @@ export default function CountryPage() {
                       sx={{ fontWeight: '600', display: 'inline-block' }}
                     >
                       Subregion:
-                    </Typography>
-                    {' '}
+                    </Typography>{' '}
                     {found.subregion}
                   </Typography>
                 </Stack>
@@ -136,8 +136,7 @@ export default function CountryPage() {
                       sx={{ fontWeight: '600', display: 'inline-block' }}
                     >
                       Top Level Domain:
-                    </Typography>
-                    {' '}
+                    </Typography>{' '}
                     {found.tld[0]}
                   </Typography>
                   <Typography component="pre">
@@ -146,8 +145,7 @@ export default function CountryPage() {
                       sx={{ fontWeight: '600', display: 'inline-block' }}
                     >
                       Currencies:
-                    </Typography>
-                    {' '}
+                    </Typography>{' '}
                     {Object.keys(found.currencies)[0]}
                   </Typography>
                   <Typography>
@@ -156,8 +154,7 @@ export default function CountryPage() {
                       sx={{ fontWeight: '600', display: 'inline-block' }}
                     >
                       Language:
-                    </Typography>
-                    {' '}
+                    </Typography>{' '}
                     {Object.values(found.languages)[0]}
                   </Typography>
                   <Typography>
@@ -166,8 +163,7 @@ export default function CountryPage() {
                       sx={{ fontWeight: '600', display: 'inline-block' }}
                     >
                       Capital:
-                    </Typography>
-                    {' '}
+                    </Typography>{' '}
                     {found.capital[0]}
                   </Typography>
                 </Stack>
@@ -178,8 +174,7 @@ export default function CountryPage() {
                   sx={{ fontWeight: '600', display: 'inline-block' }}
                 >
                   Bordering countries:
-                </Typography>
-                {' '}
+                </Typography>{' '}
                 {borderCountriesLinks}
               </Typography>
             </Stack>

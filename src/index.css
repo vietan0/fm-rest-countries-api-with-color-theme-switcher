@@ -11,5 +11,7 @@ img {
   height: 160px;
 }
 
-.countryPage img {
+.bordering-country {
+  max-width: 24px;
+  margin-right: 0.5rem;
 }

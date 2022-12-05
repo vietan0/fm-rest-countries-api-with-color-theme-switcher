@@ -8,7 +8,12 @@ import CountryPage from './pages/CountryPage';
 
 export default function App() {
   // theming
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(
+    // find browser's preference first
+    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light',
+  );
   const themeObj = createTheme(theme === 'light' ? lightTheme : darkTheme);
 
   return (

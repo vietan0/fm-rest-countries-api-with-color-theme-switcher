@@ -1,14 +1,8 @@
-import {
-  Typography, Box, Card, CardContent, Link,
-} from '@mui/material';
-import {
-  array, number, oneOfType, string,
-} from 'prop-types';
+import { Typography, Box, Card, CardActionArea, CardContent, Link } from '@mui/material';
+import { array, number, oneOfType, string } from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 
-export default function CountryCard({
-  commonName, population, region, capital, flagImg,
-}) {
+export default function CountryCard({ commonName, population, region, capital, flagImg }) {
   return (
     <Link
       to={`/countries/${commonName}`}
@@ -17,61 +11,54 @@ export default function CountryCard({
     >
       <Card
         elevation={6}
-        sx={{
-          minWidth: '240px',
-        }}
+        sx={{ minWidth: '240px' }}
         className="countryCard"
       >
-        <CardContent
-          sx={{
-            padding: '0',
-          }}
-        >
-          <img
-            src={flagImg}
-            alt={`${commonName}'s flag`}
-          />
-          <Box sx={{ padding: '1.5rem' }}>
-            <Typography
-              variant="h5"
-              component="h3"
-              gutterBottom
-              sx={{ fontWeight: '800' }}
-            >
-              {commonName}
-            </Typography>
-            <Typography>
+        <CardActionArea>
+          <CardContent sx={{ padding: '0' }}>
+            <img
+              src={flagImg}
+              alt={`${commonName}'s flag`}
+            />
+            <Box sx={{ padding: '1.5rem' }}>
               <Typography
-                component="span"
-                sx={{ fontWeight: '600', display: 'inline-block' }}
+                variant="h5"
+                component="h3"
+                gutterBottom
+                sx={{ fontWeight: '800' }}
               >
-                Population:
+                {commonName}
               </Typography>
-              {' '}
-              {population}
-            </Typography>
-            <Typography>
-              <Typography
-                component="span"
-                sx={{ fontWeight: '600', display: 'inline-block' }}
-              >
-                Region:
+              <Typography>
+                <Typography
+                  component="span"
+                  sx={{ fontWeight: '600', display: 'inline-block' }}
+                >
+                  Capital:
+                </Typography>{' '}
+                {capital}
               </Typography>
-              {' '}
-              {region}
-            </Typography>
-            <Typography>
-              <Typography
-                component="span"
-                sx={{ fontWeight: '600', display: 'inline-block' }}
-              >
-                Capital:
+              <Typography>
+                <Typography
+                  component="span"
+                  sx={{ fontWeight: '600', display: 'inline-block' }}
+                >
+                  Region:
+                </Typography>{' '}
+                {region}
               </Typography>
-              {' '}
-              {capital}
-            </Typography>
-          </Box>
-        </CardContent>
+              <Typography>
+                <Typography
+                  component="span"
+                  sx={{ fontWeight: '600', display: 'inline-block' }}
+                >
+                  Population:
+                </Typography>{' '}
+                {population}
+              </Typography>
+            </Box>
+          </CardContent>
+        </CardActionArea>
       </Card>
     </Link>
   );
@@ -85,6 +72,4 @@ CountryCard.propTypes = {
   flagImg: string.isRequired,
 };
 
-CountryCard.defaultProps = {
-  capital: undefined,
-};
+CountryCard.defaultProps = { capital: undefined };

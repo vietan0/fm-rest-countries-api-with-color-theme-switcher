@@ -11,6 +11,11 @@
   },
   "plugins": ["react"],
   "rules": {
-    "no-console": "off"
+    "no-console": "off",
+    "react/jsx-one-expression-per-line": ["off", { "allow": "single-child" }],
+    "object-curly-newline": [
+      "error",
+      { "minProperties": 4, "ImportDeclaration": { "minProperties": 7 } }
+    ]
   }
 }
