@@ -17,7 +17,7 @@ export default function CountryPage() {
             to={`/countries/${countryObj.name.common}`}
             component={RouterLink}
             variant="outlined"
-            sx={{ mr: '0.5rem', mb: "1rem" }}
+            sx={{ mr: '0.5rem', mb: '1rem' }}
           >
             <img
               src={countryObj.flags.png}

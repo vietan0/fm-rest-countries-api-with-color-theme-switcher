@@ -7,7 +7,6 @@ import {
   ListItemText,
   Stack,
   TextField,
-  Typography
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -27,7 +26,7 @@ export default function Searchbar({
   setSortBy,
   setCurrentPage,
   searchText,
-  setSearchText
+  setSearchText,
 }) {
   const [filterAnchor, setFilterAnchor] = useState(null);
   const filterOpen = Boolean(filterAnchor);

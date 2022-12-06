@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import {
-  useTheme, AppBar, Button, Link, Toolbar, Typography,
-} from '@mui/material';
+import { useTheme, AppBar, Button, Link, Toolbar, Typography } from '@mui/material';
 import { string, func } from 'prop-types';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
