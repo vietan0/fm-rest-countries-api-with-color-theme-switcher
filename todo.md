@@ -4,5 +4,5 @@
 - ~~Add country individual page~~
 - ~~Add sorting functionality~~
 - ~~Split countries into pages~~
-- Figure out how to search
+- ~~Figure out how to search~~
 - Format population number

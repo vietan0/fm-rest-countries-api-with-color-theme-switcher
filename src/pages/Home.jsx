@@ -1,5 +1,5 @@
 import { Container, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
-import { useContext, useMemo, useState } from 'react';
+import { useCallback, useContext, useMemo, useState } from 'react';
 import { nanoid } from 'nanoid';
 import Searchbar from '../components/Searchbar';
 import CountryCard from '../components/CountryCard';
@@ -11,47 +11,58 @@ export default function Home() {
   const [selectedRegion, setSelectedRegion] = useState('');
   const [isFilteredByUnMember, setIsFilteredByUnMember] = useState(false);
   const [sortBy, setSortBy] = useState('');
+  const [searchText, setSearchText] = useState('');
 
   const [currentPage, setCurrentPage] = useState(1);
   const cardsPerPage = 20;
 
+  const filterMenuFunc = (country) => {
+    if (selectedRegion) return country.region === selectedRegion;
+    if (isFilteredByUnMember) return country.unMember === true;
+    if (country.name.common === 'Antarctica') return false; // not a country
+    return true;
+  };
+  const searchFilterFunc = (country) => {
+    // if there's nothing typed
+    if (searchText.length === 0) return country;
+
+    if (/^([A-Z])+$/gi.test(searchText)) {
+      // only create a regex after making sure all characters are valid (not [](){})
+      const regex = new RegExp(searchText, 'i');
+      return country.name.common.match(regex);
+    }
+  };
+  const sortFunc = (a, b) => {
+    if (sortBy === 'Name') return a.name.common > b.name.common;
+    if (sortBy === 'Population') return a.population < b.population;
+    if (sortBy === 'Area') return a.area < b.area;
+    return undefined;
+  };
   const countriesToBeRendered = useMemo(
-    () =>
-      countries
-        .filter((country) => {
-          if (selectedRegion) return country.region === selectedRegion;
-          if (isFilteredByUnMember) return country.unMember === true;
-          if (country.name.common === 'Antarctica') return false; // not a country
-          return true;
-        })
-        .sort((a, b) => {
-          if (sortBy === 'Name') return a.name.common > b.name.common;
-          if (sortBy === 'Population') return a.population < b.population;
-          if (sortBy === 'Area') return a.area < b.area;
-          return undefined;
-        }),
-    [selectedRegion, isFilteredByUnMember, sortBy, currentPage],
+    () => countries.filter(filterMenuFunc).filter(searchFilterFunc).sort(sortFunc),
+    [currentPage, filterMenuFunc, searchFilterFunc, sortFunc],
   );
+
   const pages = pagination(countriesToBeRendered, cardsPerPage);
-  const countryCards = useMemo(
-    () =>
-      pages[currentPage - 1].map((countryObj) => (
-        <CountryCard
-          commonName={countryObj.name.common}
-          population={countryObj.population}
-          region={countryObj.region}
-          capital={countryObj.capital}
-          flagImg={countryObj.flags.svg}
-          key={nanoid()}
-        />
-      )),
-    [countriesToBeRendered],
-  );
+  const countryCards = useMemo(() => {
+    if (pages.length === 0) return [];
+    return pages[currentPage - 1].map((countryObj) => (
+      <CountryCard
+        commonName={countryObj.name.common}
+        population={countryObj.population}
+        region={countryObj.region}
+        capital={countryObj.capital}
+        flagImg={countryObj.flags.svg}
+        key={nanoid()}
+      />
+    ));
+  }, [countriesToBeRendered]);
 
   const pagiBar = (
     <Stack spacing={1}>
       <Typography align="center">
-        Showing {cardsPerPage} countries out of {countriesToBeRendered.length}
+        Showing {Math.min(cardsPerPage, countriesToBeRendered.length)} countries out of{' '}
+        {countriesToBeRendered.length}
       </Typography>
       <Pagination
         count={pages.length}
@@ -91,8 +102,14 @@ export default function Home() {
         sortBy={sortBy}
         setSortBy={setSortBy}
         setCurrentPage={setCurrentPage}
+        searchText={searchText}
+        setSearchText={setSearchText}
       />
-      {pagiBar}
+      {countriesToBeRendered.length === 0 ? (
+        <Typography align="center">Can't find any countries</Typography>
+      ) : (
+        pagiBar
+      )}
       <Container
         sx={{
           display: 'grid',
@@ -103,7 +120,6 @@ export default function Home() {
       >
         {countryCards}
       </Container>
-      {pagiBar}
     </Container>
   );
 }

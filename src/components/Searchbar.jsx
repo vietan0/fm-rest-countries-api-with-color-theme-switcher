@@ -2,11 +2,12 @@ import {
   Button,
   Menu,
   MenuItem,
-  TextField,
   InputAdornment,
   ListItemIcon,
   ListItemText,
   Stack,
+  TextField,
+  Typography
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -25,6 +26,8 @@ export default function Searchbar({
   sortBy,
   setSortBy,
   setCurrentPage,
+  searchText,
+  setSearchText
 }) {
   const [filterAnchor, setFilterAnchor] = useState(null);
   const filterOpen = Boolean(filterAnchor);
@@ -98,6 +101,8 @@ export default function Searchbar({
           id="input-with-sx"
           label="Search"
           variant="outlined"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
