@@ -1,6 +1,9 @@
 const sharedOverrides = {
   typography: {
     fontFamily: ['Nunito Sans', 'Helvetica', 'Arial', 'sans-serif'].join(','),
+    button: {
+      textTransform: 'none',
+    },
   },
   components: {
     MuiCardContent: {
@@ -11,6 +14,15 @@ const sharedOverrides = {
           },
         },
       },
+    },
+  },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 500,
+      md: 900,
+      lg: 1200,
+      xl: 1536,
     },
   },
 };
@@ -26,6 +38,9 @@ export const lightTheme = {
     },
     background: {
       default: 'hsl(0, 0%, 98%)',
+    },
+    info: {
+      main: 'hsl(209, 10%, 80%)',
     },
   },
 };
@@ -43,6 +58,9 @@ export const darkTheme = {
     background: {
       default: 'hsl(207, 26%, 15%)',
       paper: 'hsl(209, 23%, 10%)',
+    },
+    info: {
+      main: 'hsl(209, 10%, 40%)',
     },
   },
 };

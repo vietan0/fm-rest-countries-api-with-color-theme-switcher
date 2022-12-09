@@ -1,5 +1,5 @@
-import { Container, Pagination, PaginationItem, Stack, Typography } from '@mui/material';
-import { useCallback, useContext, useMemo, useState } from 'react';
+import { Container, Link, Pagination, Stack, Typography } from '@mui/material';
+import { useContext, useMemo, useState } from 'react';
 import { nanoid } from 'nanoid';
 import Searchbar from '../components/Searchbar';
 import CountryCard from '../components/CountryCard';
@@ -8,6 +8,7 @@ import pagination from '../pagination';
 
 export default function Home() {
   const { countries } = useContext(CountriesContext);
+  const [loading] = useState(!countries);
   const [selectedRegion, setSelectedRegion] = useState('');
   const [isFilteredByUnMember, setIsFilteredByUnMember] = useState(false);
   const [sortBy, setSortBy] = useState('');
@@ -25,12 +26,13 @@ export default function Home() {
   const searchFilterFunc = (country) => {
     // if there's nothing typed
     if (searchText.length === 0) return country;
-
+    let matchArray = true;
     if (/^([A-Z])+$/gi.test(searchText)) {
       // only create a regex after making sure all characters are valid (not [](){})
       const regex = new RegExp(searchText, 'i');
-      return country.name.common.match(regex);
+      matchArray = country.name.common.match(regex);
     }
+    return matchArray;
   };
   const sortFunc = (a, b) => {
     if (sortBy === 'Name') return a.name.common > b.name.common;
@@ -53,6 +55,7 @@ export default function Home() {
         region={countryObj.region}
         capital={countryObj.capital}
         flagImg={countryObj.flags.svg}
+        searchText={searchText}
         key={nanoid()}
       />
     ));
@@ -106,20 +109,45 @@ export default function Home() {
         setSearchText={setSearchText}
       />
       {countriesToBeRendered.length === 0 ? (
-        <Typography align="center">Can't find any countries</Typography>
+        <Typography align="center">
+          {loading ? 'Loading data from API...' : "Can't find any countries"}
+        </Typography>
       ) : (
         pagiBar
       )}
       <Container
         sx={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
           columnGap: '3rem',
           rowGap: '3rem',
         }}
       >
         {countryCards}
       </Container>
+      <Typography
+        align="center"
+        className="attribution"
+        padding={2}
+        fontSize={14}
+      >
+        Challenge by{' '}
+        <Link
+          href="https://www.frontendmentor.io?ref=challenge"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Frontend Mentor
+        </Link>
+        . Coded by{' '}
+        <Link
+          href="https://github.com/vietan0"
+          target="_blank"
+          rel="noreferrer"
+        >
+          Việt An
+        </Link>
+      </Typography>
     </Container>
   );
 }

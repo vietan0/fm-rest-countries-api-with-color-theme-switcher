@@ -86,15 +86,17 @@ export default function Searchbar({
 
   return (
     <Stack
-      direction="row"
+      direction={{ xs: 'column', sm: 'row' }}
+      // alignItems="stretch"
       spacing={2}
       justifyContent="space-between"
-      alignItems="center"
+      className="search-bar"
     >
       <Stack
         direction="row"
         spacing={0.5}
         alignItems="center"
+        className="search-field"
       >
         <TextField
           id="input-with-sx"
@@ -112,16 +114,32 @@ export default function Searchbar({
         />
       </Stack>
       <Stack
-        direction="row"
+        direction={{ xs: 'column', sm: 'row' }}
         spacing={1}
+        className="sort-and-filter"
+        justifyContent="space-between"
+        sx={{
+          maxWidth: '400px',
+          flexGrow: '1',
+          ' > *': {
+            flexGrow: '1',
+          },
+        }}
       >
         <Button
           onClick={handleSortClick}
           endIcon={<KeyboardArrowDownIcon />}
           startIcon={<SortIcon />}
+          variant="outlined"
           disableRipple
+          sx={{
+            // width: '200px',
+            '>:last-child': {
+              marginLeft: 'auto',
+            },
+          }}
         >
-          Sort By
+          {sortBy ? `Sort By: ${sortBy}` : 'Sort By'}
         </Button>
         <Menu
           anchorEl={sortElem}
@@ -134,9 +152,16 @@ export default function Searchbar({
           onClick={handleFilterClick}
           endIcon={<KeyboardArrowDownIcon />}
           startIcon={<FilterAltIcon />}
+          variant="outlined"
           disableRipple
+          sx={{
+            // width: '200px',
+            '>:last-child': {
+              marginLeft: 'auto',
+            },
+          }}
         >
-          Filter By
+          {selectedRegion ? `Region: ${selectedRegion}` : 'Filter By'}
         </Button>
         <Menu
           open={filterOpen}
@@ -182,4 +207,6 @@ Searchbar.propTypes = {
   sortBy: string.isRequired,
   setSortBy: func.isRequired,
   setCurrentPage: func.isRequired,
+  searchText: string.isRequired,
+  setSearchText: func.isRequired,
 };

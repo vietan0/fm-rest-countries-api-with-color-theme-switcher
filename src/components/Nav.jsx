@@ -31,15 +31,15 @@ export default function Nav({ theme, setTheme }) {
         <Button
           variant="outlined"
           color="primary"
-          onClick={() => setTheme((prev) => (prev === 'light' ? 'dark' : 'light'))}
-          startIcon={theme === 'light' ? <DarkModeIcon /> : <LightModeIcon />}
+          onClick={() => setTheme((prev) => (prev === 'Light' ? 'Dark' : 'Light'))}
+          startIcon={theme === 'Light' ? <DarkModeIcon /> : <LightModeIcon />}
           disableRipple
         >
           <Typography
             component="span"
             sx={{ fontSize: '0.85rem' }}
           >
-            {theme === 'light' ? 'dark' : 'light'} Mode
+            {theme === 'Light' ? 'Dark' : 'Light'} Mode
           </Typography>
         </Button>
       </Toolbar>

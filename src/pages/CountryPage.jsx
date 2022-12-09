@@ -1,33 +1,40 @@
 import { useContext } from 'react';
 import { Link as RouterLink, useNavigate, useParams } from 'react-router-dom';
-import { Divider, Button, Container, Grid, Stack, Typography } from '@mui/material';
+import {
+  Divider, Button, Container, Grid, Link, Stack, Typography,
+} from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { CountriesContext } from '../CountriesContext';
+import addSuffix from '../addSuffix';
+import toKebabCase from '../toKebabCase';
 
 export default function CountryPage() {
   const params = useParams();
   const { countries } = useContext(CountriesContext);
-  const found = countries.find((country) => country.name.common === params.name);
+  const found = countries.find(
+    (country) => toKebabCase(country.name.common) === toKebabCase(params.name),
+  );
 
   const borderCountriesLinks = found.borders
     ? found.borders.map((cca3) => {
-        const countryObj = countries.find((country) => country.cca3 === cca3);
-        return (
-          <Button
-            to={`/countries/${countryObj.name.common}`}
-            component={RouterLink}
-            variant="outlined"
-            sx={{ mr: '0.5rem', mb: '1rem' }}
-          >
-            <img
-              src={countryObj.flags.png}
-              alt=""
-              className="bordering-country"
-            />
-            {cca3}
-          </Button>
-        );
-      })
+      const countryObj = countries.find((country) => country.cca3 === cca3);
+      return (
+        <Button
+          to={`/countries/${toKebabCase(countryObj.name.common)}`}
+          component={RouterLink}
+          variant="outlined"
+          sx={{ mr: '0.5rem', mb: '1rem' }}
+          title={countryObj.name.common}
+        >
+          <img
+            src={countryObj.flags.png}
+            alt=""
+            className="bordering-country"
+          />
+          {cca3}
+        </Button>
+      );
+    })
     : 'None';
   const nav = useNavigate();
 
@@ -78,18 +85,18 @@ export default function CountryPage() {
               component="h1"
               variant="h3"
             >
-              {found.name.common}
+              {found.name.common} <Typography component="span" />
             </Typography>
             <Stack spacing={4}>
               <Stack
                 direction={{ md: 'column', lg: 'row' }}
-                spacing={{ md: 2, lg: 4 }}
-                divider={
+                spacing={{ sm: 1, md: 2, lg: 4 }}
+                divider={(
                   <Divider
                     orientation="vertical"
                     flexItem
                   />
-                }
+                )}
               >
                 <Stack spacing={1}>
                   <Typography>
@@ -108,7 +115,7 @@ export default function CountryPage() {
                     >
                       Population:
                     </Typography>{' '}
-                    {found.population}
+                    {addSuffix(found.population)}
                   </Typography>
                   <Typography>
                     <Typography
@@ -168,15 +175,23 @@ export default function CountryPage() {
                   </Typography>
                 </Stack>
               </Stack>
-              <Typography>
-                <Typography
-                  component="span"
-                  sx={{ fontWeight: '600', display: 'inline-block' }}
+              <Stack spacing="1">
+                <Typography>
+                  <Typography
+                    component="span"
+                    sx={{ fontWeight: '600', display: 'inline-block' }}
+                  >
+                    Bordering countries:
+                  </Typography>{' '}
+                  {borderCountriesLinks}
+                </Typography>
+                <Link
+                  href={found.maps.googleMaps}
+                  target="_blank"
                 >
-                  Bordering countries:
-                </Typography>{' '}
-                {borderCountriesLinks}
-              </Typography>
+                  Google Maps
+                </Link>
+              </Stack>
             </Stack>
           </Stack>
         </Grid>

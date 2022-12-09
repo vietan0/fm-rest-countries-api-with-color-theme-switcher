@@ -5,4 +5,12 @@
 - ~~Add sorting functionality~~
 - ~~Split countries into pages~~
 - ~~Figure out how to search~~
-- Format population number
+- ~~Allow more than 1 props per line in ESLint~~
+- ~~Get rid of attribution in individual `CountryPage`~~
+- ~~Format population number~~
+- ~~Add `loading` state to control when "Can't find any countries" message appear~~
+- ~~Fix HTML validation issues~~
+- ~~Add Google Maps link in `CountryPage`~~
+- ~~Add tooltip when hovering a neighbor country button~~
+- ~~Add highlight when searching~~
+- ~~Add filter indicator~~

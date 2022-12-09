@@ -12,9 +12,8 @@
   "plugins": ["react"],
   "rules": {
     "no-console": "off",
-    "object-curly-newline": [
-      "error",
-      { "minProperties": 4, "ImportDeclaration": { "minProperties": 7 } }
-    ]
+    "react/jsx-one-expression-per-line": "off",
+    "object-curly-newline": ["error", { "ImportDeclaration": { "minProperties": 7 } }],
+    "wrap-iife": ["error", "inside"]
   }
 }

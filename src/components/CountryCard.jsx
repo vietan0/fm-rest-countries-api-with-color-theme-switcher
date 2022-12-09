@@ -1,11 +1,21 @@
 import { Typography, Box, Card, CardActionArea, CardContent, Link } from '@mui/material';
 import { array, number, oneOfType, string } from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
+import addSuffix from '../addSuffix';
+import toKebabCase from '../toKebabCase';
+import HighlightMatch from './HighlightMatch';
 
-export default function CountryCard({ commonName, population, region, capital, flagImg }) {
+export default function CountryCard({
+  commonName,
+  population,
+  region,
+  capital,
+  flagImg,
+  searchText,
+}) {
   return (
     <Link
-      to={`/countries/${commonName}`}
+      to={`/countries/${toKebabCase(commonName)}`}
       underline="none"
       component={RouterLink}
     >
@@ -14,21 +24,17 @@ export default function CountryCard({ commonName, population, region, capital, f
         sx={{ minWidth: '240px' }}
         className="countryCard"
       >
-        <CardActionArea>
+        <CardActionArea component="div">
           <CardContent sx={{ padding: '0' }}>
             <img
               src={flagImg}
               alt={`${commonName}'s flag`}
             />
             <Box sx={{ padding: '1.5rem' }}>
-              <Typography
-                variant="h5"
-                component="h3"
-                gutterBottom
-                sx={{ fontWeight: '800' }}
-              >
-                {commonName}
-              </Typography>
+              <HighlightMatch
+                countryName={commonName}
+                searchText={searchText}
+              />
               <Typography>
                 <Typography
                   component="span"
@@ -54,7 +60,7 @@ export default function CountryCard({ commonName, population, region, capital, f
                 >
                   Population:
                 </Typography>{' '}
-                {population}
+                {addSuffix(population)}
               </Typography>
             </Box>
           </CardContent>
@@ -70,6 +76,7 @@ CountryCard.propTypes = {
   region: string.isRequired,
   capital: oneOfType([string, array]),
   flagImg: string.isRequired,
+  searchText: string.isRequired,
 };
 
 CountryCard.defaultProps = { capital: undefined };
