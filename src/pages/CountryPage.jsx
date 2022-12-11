@@ -50,7 +50,6 @@ export default function CountryPage() {
         onClick={() => nav('/')}
         startIcon={<ArrowBackIcon />}
         variant="outlined"
-        disableRipple
       >
         Back to Countries
       </Button>

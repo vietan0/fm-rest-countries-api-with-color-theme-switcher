@@ -16,6 +16,7 @@ import CheckIcon from '@mui/icons-material/Check';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { bool, func, string } from 'prop-types';
 import { useState } from 'react';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function Searchbar({
   selectedRegion,
@@ -84,11 +85,12 @@ export default function Searchbar({
     </MenuItem>
   ));
 
+  const biggerThan500px = useMediaQuery((myTheme) => myTheme.breakpoints.up('sm'));
+
   return (
     <Stack
       direction={{ xs: 'column', sm: 'row' }}
-      // alignItems="stretch"
-      spacing={2}
+      spacing={{ xs: 3, sm: 2 }}
       justifyContent="space-between"
       className="search-bar"
     >
@@ -104,6 +106,7 @@ export default function Searchbar({
           variant="outlined"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
+          sx={{ flexGrow: '1' }}
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
@@ -119,7 +122,7 @@ export default function Searchbar({
         className="sort-and-filter"
         justifyContent="space-between"
         sx={{
-          maxWidth: '400px',
+          maxWidth: biggerThan500px ? '400px' : 'auto',
           flexGrow: '1',
           ' > *': {
             flexGrow: '1',
