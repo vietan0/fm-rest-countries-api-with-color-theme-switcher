@@ -14,3 +14,6 @@
 - ~~Add tooltip when hovering a neighbor country button~~
 - ~~Add highlight when searching~~
 - ~~Add filter indicator~~
+- ~~Fix loading message problem~~
+- ~~Fix layout at small screen sizes, change theme button to icon-only~~
+- ~~Fix more HTML validation issues: `tabindex=0` element nested inside `<a>`~~

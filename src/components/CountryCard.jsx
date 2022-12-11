@@ -1,4 +1,4 @@
-import { Typography, Box, Card, CardActionArea, CardContent, Link } from '@mui/material';
+import { Typography, Box, Card, CardActionArea, CardContent } from '@mui/material';
 import { array, number, oneOfType, string } from 'prop-types';
 import { Link as RouterLink } from 'react-router-dom';
 import addSuffix from '../addSuffix';
@@ -14,59 +14,56 @@ export default function CountryCard({
   searchText,
 }) {
   return (
-    <Link
-      to={`/countries/${toKebabCase(commonName)}`}
-      underline="none"
-      component={RouterLink}
+    <Card
+      elevation={6}
+      sx={{ minWidth: '240px' }}
+      className="countryCard"
     >
-      <Card
-        elevation={6}
-        sx={{ minWidth: '240px' }}
-        className="countryCard"
+      <CardActionArea
+        component={RouterLink}
+        to={`/countries/${toKebabCase(commonName)}`}
       >
-        <CardActionArea component="div">
-          <CardContent sx={{ padding: '0' }}>
-            <img
-              src={flagImg}
-              alt={`${commonName}'s flag`}
+        <CardContent sx={{ padding: '0' }}>
+          <img
+            src={flagImg}
+            alt={`${commonName}'s flag`}
+          />
+          <Box sx={{ padding: '1.5rem' }}>
+            <HighlightMatch
+              countryName={commonName}
+              searchText={searchText}
             />
-            <Box sx={{ padding: '1.5rem' }}>
-              <HighlightMatch
-                countryName={commonName}
-                searchText={searchText}
-              />
-              <Typography>
-                <Typography
-                  component="span"
-                  sx={{ fontWeight: '600', display: 'inline-block' }}
-                >
-                  Capital:
-                </Typography>{' '}
-                {capital}
-              </Typography>
-              <Typography>
-                <Typography
-                  component="span"
-                  sx={{ fontWeight: '600', display: 'inline-block' }}
-                >
-                  Region:
-                </Typography>{' '}
-                {region}
-              </Typography>
-              <Typography>
-                <Typography
-                  component="span"
-                  sx={{ fontWeight: '600', display: 'inline-block' }}
-                >
-                  Population:
-                </Typography>{' '}
-                {addSuffix(population)}
-              </Typography>
-            </Box>
-          </CardContent>
-        </CardActionArea>
-      </Card>
-    </Link>
+            <Typography>
+              <Typography
+                component="span"
+                sx={{ fontWeight: '600', display: 'inline-block' }}
+              >
+                Capital:
+              </Typography>{' '}
+              {capital}
+            </Typography>
+            <Typography>
+              <Typography
+                component="span"
+                sx={{ fontWeight: '600', display: 'inline-block' }}
+              >
+                Region:
+              </Typography>{' '}
+              {region}
+            </Typography>
+            <Typography>
+              <Typography
+                component="span"
+                sx={{ fontWeight: '600', display: 'inline-block' }}
+              >
+                Population:
+              </Typography>{' '}
+              {addSuffix(population)}
+            </Typography>
+          </Box>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 }
 

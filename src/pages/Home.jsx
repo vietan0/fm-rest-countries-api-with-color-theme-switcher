@@ -7,8 +7,7 @@ import { CountriesContext } from '../CountriesContext';
 import pagination from '../pagination';
 
 export default function Home() {
-  const { countries } = useContext(CountriesContext);
-  const [loading] = useState(!countries);
+  const { countries, loading } = useContext(CountriesContext);
   const [selectedRegion, setSelectedRegion] = useState('');
   const [isFilteredByUnMember, setIsFilteredByUnMember] = useState(false);
   const [sortBy, setSortBy] = useState('');
@@ -42,7 +41,7 @@ export default function Home() {
   };
   const countriesToBeRendered = useMemo(
     () => countries.filter(filterMenuFunc).filter(searchFilterFunc).sort(sortFunc),
-    [currentPage, filterMenuFunc, searchFilterFunc, sortFunc],
+    [countries, currentPage, filterMenuFunc, searchFilterFunc, sortFunc],
   );
 
   const pages = pagination(countriesToBeRendered, cardsPerPage);
@@ -83,6 +82,14 @@ export default function Home() {
     </Stack>
   );
 
+  const loadingMessage = useMemo(() => {
+    if (loading) return <Typography align="center">Loading data from API...</Typography>;
+    if (countriesToBeRendered.length === 0) {
+      return <Typography align="center">Can&apos;t find any countries</Typography>;
+    }
+    return pagiBar;
+  }, [loading, countriesToBeRendered]);
+
   return (
     <Container
       maxWidth="lg"
@@ -108,13 +115,7 @@ export default function Home() {
         searchText={searchText}
         setSearchText={setSearchText}
       />
-      {countriesToBeRendered.length === 0 ? (
-        <Typography align="center">
-          {loading ? 'Loading data from API...' : "Can't find any countries"}
-        </Typography>
-      ) : (
-        pagiBar
-      )}
+      {loadingMessage}
       <Container
         sx={{
           display: 'grid',
